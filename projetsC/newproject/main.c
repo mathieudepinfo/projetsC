@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "tableaux.h"
 
 void plusoumoins(int nombre_secret);
 
@@ -42,11 +43,15 @@ default:
 
 }
 */
-int MAX=100,MIN=1;
-srand(time(NULL));
+//int MAX=100,MIN=1;
+//srand(time(NULL));
 
-int nombreMystere = (rand() % (MAX - MIN + 1)) + MIN;
-plusoumoins(nombreMystere);
+//int nombreMystere = (rand() % (MAX - MIN + 1)) + MIN;
+//plusoumoins(nombreMystere);
+int tableau[5]={1,2,3,4,6};
+somme(tableau,5);
+printf("%d \n",somme(tableau,5));
+printf("%f",moyenne(tableau,5));
 
     return 0;
 
