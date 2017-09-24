@@ -1,0 +1,13 @@
+#ifndef DEFINES_H_INCLUDED
+#define DEFINES_H_INCLUDED
+
+#define VITESSE_BALLE 100
+#define HAUTEUR_BARRE 10
+#define RAYON_BALLE 10
+#define MAX_VIE 100000
+#define NBER_OF_POINTS 360
+#define WIDTH 800
+#define HEIGHT 600
+#define Pi 3.14159265359
+#define EPSILON 0.3
+#endif // DEFINES_H_INCLUDED
