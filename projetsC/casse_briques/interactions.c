@@ -27,7 +27,11 @@ float abso(float a){
 
 int IsinRectangle(Point* point,Bloc* bloc){
 
-    if(maxi(abso(point->x-bloc->centre->x),abso((point->y-bloc->centre->y)*(bloc->lx/bloc->ly)))<=bloc->lx){
+    if(     point->x>=(bloc->centre->x-bloc->lx)
+        &&  point->x<=(bloc->centre->x+bloc->lx)
+        &&  point->y>=(bloc->centre->y-bloc->ly)
+        &&  point->y<=(bloc->centre->y+bloc->ly)
+       ){
 
         return 1;
     }
@@ -38,13 +42,13 @@ int IsinRectangle(Point* point,Bloc* bloc){
 
 int collision(Balle *balle,Bloc *bloc)
 {
-    if(!(bloc->etat))
+    if(!(bloc->etat)) //si le bloc est mort
     {
         return 0;
     }
     else if (dist(balle->centre,bloc->centre)<(balle->rayon+maxi(bloc->lx,bloc->ly))){ //si on est relativement proche
 
-        for(int i=0;i<NBER_OF_POINTS;i++){// on teste tout les points de la hitbox, hitbox[0] contient le nombre de points de la hitbox
+        for(int i=0;i<NBER_OF_POINTS;i++){// on teste tout les points de la hitbox,
 
             if(IsinRectangle(balle->hitbox[i],bloc)){
 
@@ -64,26 +68,29 @@ void rebond(int i,Balle *balle,Bloc *bloc,Uint32 couleurs[])
     printf("%d \n",bloc->etat==2);
     if(bloc->etat==2){ //si c'est la barre
 
-        if((balle->memory[i]->y)<=(bloc->centre->y+bloc->ly)) //la barre part de y=0 jusque y=HAUTEUR_BARRE
+        if((balle->memory[i]->y)<=(bloc->centre->y-bloc->ly)) //la barre part de y=0 jusque y=HAUTEUR_BARRE
         {
-            printf("ici");
+
             float d=balle->hitbox[i]->x-bloc->centre->x;
-            balle->vx=VITESSE_BALLE*d/bloc->lx;
+            //printf("ici %f \n",d);
+            balle->vx=100*d/(bloc->lx);
             balle->vy*=-1;
         }
-        else
+        else if((balle->memory[i]->x)<=(bloc->centre->x-bloc->lx)
+             || (balle->memory[i]->x)>=(bloc->centre->x+bloc->lx))
         {
-            balle->vy*=-1;
+            balle->vx*=-1;
         }
     }
     else if(bloc->etat==1){ //si c'est un bloc vivant
 
 
-        if((balle->memory[i]->x<=(bloc->centre->x-bloc->lx))||(balle->memory[i]->x>=(bloc->centre->x+bloc->lx)))
+        if((balle->memory[i]->x<=(bloc->centre->x-bloc->lx))
+         ||(balle->memory[i]->x>=(bloc->centre->x+bloc->lx)))
         {
             balle->vx*=-1;
         }
-        else //if(((balle->hitbox[i]->y-balle->vy)<=(bloc->y-bloc->ly))||((balle->centre->y-balle->vy)>=(bloc->centre->y+bloc->ly)))
+        else //if((balle->memory[i]->y<=(bloc->centre->y-bloc->ly))||(balle->memory[i]->y>=(bloc->centre->y+bloc->ly)))
         {
             balle->vy*=-1;
         }
@@ -91,7 +98,6 @@ void rebond(int i,Balle *balle,Bloc *bloc,Uint32 couleurs[])
         if (bloc->vie<1000){//si c'est pas un bord
             bloc->vie-=1;
         }
-
 
         if(bloc->vie<=0){
             bloc->etat=0;

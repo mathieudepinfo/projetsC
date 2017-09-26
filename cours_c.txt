@@ -1,0 +1,33 @@
+commande de compilateur : gcc
+
+option -c pour faire un fichier .o
+option -l pour inclure une librairie
+
+
+
+:x
+
+option -o pour 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

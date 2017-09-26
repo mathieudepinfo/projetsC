@@ -48,11 +48,16 @@ default:
 
 //int nombreMystere = (rand() % (MAX - MIN + 1)) + MIN;
 //plusoumoins(nombreMystere);
-int tableau[5]={1,2,3,4,6};
+int tableau[5]={1,6,12,4,6};
 somme(tableau,5);
 printf("%d \n",somme(tableau,5));
-printf("%f",moyenne(tableau,5));
+printf("%f \n",moyenne(tableau,5));
 
+int tableau2[5];
+copie(tableau,tableau2,5);
+affiche(tableau2,5);
+ordonnerTableau(tableau2+2,tableau2,tableau2+4);
+affiche(tableau2,5);
     return 0;
 
 }
