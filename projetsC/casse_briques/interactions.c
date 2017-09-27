@@ -90,7 +90,7 @@ void rebond(int i,Balle *balle,Bloc *bloc,Uint32 couleurs[])
         {
             balle->vx*=-1;
         }
-        else //if((balle->memory[i]->y<=(bloc->centre->y-bloc->ly))||(balle->memory[i]->y>=(bloc->centre->y+bloc->ly)))
+        else if((balle->memory[i]->y<=(bloc->centre->y-bloc->ly))||(balle->memory[i]->y>=(bloc->centre->y+bloc->ly)))
         {
             balle->vy*=-1;
         }

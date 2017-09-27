@@ -53,6 +53,7 @@ void partie(SDL_Surface* fenetre,Bloc* barre,Bloc** blocs,Balle* balle,Uint32 co
     int dx;
     int a;
     int mem;
+    int x;
     SDL_WM_GrabInput( SDL_GRAB_ON );
 
     while(continuer)
@@ -67,8 +68,8 @@ void partie(SDL_Surface* fenetre,Bloc* barre,Bloc** blocs,Balle* balle,Uint32 co
                 break;
 
             case SDL_MOUSEMOTION:
-
-                dx=5+VITESSE_BARRE*(event.motion.x-barre->centre->x)/WIDTH;
+                SDL_SDL_GetMouseState(&x,NULL)
+                dx=5+VITESSE_BARRE*(x-barre->centre->x)/WIDTH;
 
                 break;
 
