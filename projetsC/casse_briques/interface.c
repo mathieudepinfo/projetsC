@@ -60,12 +60,8 @@ void setPixel(SDL_Surface* fenetre,double x, double y, Uint32 coul)
 void actualise(SDL_Surface* fenetre,Uint32 couleurs[],Balle* balle,Bloc** blocs,Bloc* barre)
 {
 
-    //remise a zero de toute la fenetre ( a optimiser)
-    for(int i=0;i<fenetre->w;i++){
-        for(int j=0;j<fenetre->h;j++){
-            setPixel(fenetre,i,j,couleurs[0]);
-        }
-    }
+    //remise a zero de toute la fenetre
+    SDL_FillRect(fenetre,NULL,couleurs[0]);
 
     //actualisation des blocs (a optimiser)
     for(int i=0;i<103;i++)

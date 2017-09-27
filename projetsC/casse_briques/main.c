@@ -28,20 +28,21 @@ void initpartie(SDL_Surface* fenetre,Uint32 couleurs[])
 {
 
     Bloc *barre=createBloc(WIDTH/2,HEIGHT-HAUTEUR_BARRE/2,30,HAUTEUR_BARRE,200000,couleurs);
-    Balle *balle=createBalle(WIDTH/2,HEIGHT-HAUTEUR_BARRE/2-RAYON_BALLE-50,0,1);
+    Balle *balle=createBalle(WIDTH/2,HEIGHT-HAUTEUR_BARRE/2-RAYON_BALLE-50,0,0);
     Bloc **blocs=malloc(sizeof(Bloc*)*103);
     for(int i=0;i<10;i++)
     {
         for(int j=0;j<10;j++)
         {
             printf("b= %d \n",(10*i+j));
-            *(blocs+10*i+j)=createBloc(300+i*30,200+j*30,15,15,1+rand()%9,couleurs);
+            *(blocs+10*i+j)=createBloc(300+i*30,200+j*30,14,10,1+rand()%9,couleurs);
         }
 
     }
     blocs[100]=createBloc(0,HEIGHT/2,1,HEIGHT/2+2,1500,couleurs);
     blocs[101]=createBloc(WIDTH,HEIGHT/2,1,HEIGHT/2+2,1500,couleurs);
     blocs[102]=createBloc(WIDTH/2,0,WIDTH/2+2,1,1500,couleurs);
+    actualise(fenetre,couleurs,balle,blocs,barre);
     partie(fenetre,barre,blocs,balle,couleurs);
 }
 void partie(SDL_Surface* fenetre,Bloc* barre,Bloc** blocs,Balle* balle,Uint32 couleurs[])
@@ -50,11 +51,13 @@ void partie(SDL_Surface* fenetre,Bloc* barre,Bloc** blocs,Balle* balle,Uint32 co
     int continuer=1;
     int t0 = 0, t1 = 0;
     int compteur=0;
-    int dx;
+    int dx=0;
     int a;
-    int mem;
+    int mem=-1;
     int x;
+    int start=1;
     SDL_WM_GrabInput( SDL_GRAB_ON );
+
 
     while(continuer)
     {
@@ -67,29 +70,37 @@ void partie(SDL_Surface* fenetre,Bloc* barre,Bloc** blocs,Balle* balle,Uint32 co
                 continuer=0;
                 break;
 
-            case SDL_MOUSEMOTION:
-                SDL_SDL_GetMouseState(&x,NULL)
-                dx=5+VITESSE_BARRE*(x-barre->centre->x)/WIDTH;
-
-                break;
-
             case SDL_KEYDOWN:
                 if(event.key.keysym.sym==SDLK_a){
                     SDL_WM_GrabInput( SDL_GRAB_OFF );
                 }
                 else if(event.key.keysym.sym==SDLK_q){
-                    dx=-VITESSE_BARRE/10.0;
+                    dx=-VITESSE_BARRE/5.0;
                 }
                 else if(event.key.keysym.sym==SDLK_d){
-                    dx=VITESSE_BARRE/10.0;
+                    dx=VITESSE_BARRE/5.0;
+                }
+                else if(event.key.keysym.sym==SDLK_SPACE){
+                    balle->vy=1;
                 }
 
                 break;
+
+
             case SDL_KEYUP:
+                dx=0;
+                break;
+
+            default:
+
+                SDL_GetMouseState(&x,NULL);
+                dx=VITESSE_BARRE*(x-barre->centre->x)/WIDTH;
+                barre->centre->x+=dx;
                 dx=0;
                 break;
             }
         }
+
         barre->centre->x+=dx;
 
 

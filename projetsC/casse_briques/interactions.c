@@ -65,7 +65,7 @@ int collision(Balle *balle,Bloc *bloc)
 
 void rebond(int i,Balle *balle,Bloc *bloc,Uint32 couleurs[])
 {
-    printf("%d \n",bloc->etat==2);
+    printf("%d, \n",i);
     if(bloc->etat==2){ //si c'est la barre
 
         if((balle->memory[i]->y)<=(bloc->centre->y-bloc->ly)) //la barre part de y=0 jusque y=HAUTEUR_BARRE
